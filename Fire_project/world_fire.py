@@ -1,17 +1,18 @@
 import csv
 from datetime import datetime
+
 from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
 number_rows = 10_000
-filename = 'fire_data/world_fires_1_day.csv'
 
+filename = 'fire_data/world_fires_1_day.csv'
 with open(filename) as f:
     reader = csv.reader(f)
     header_row = next(reader)
 
     # Print the index position of the data information
-    print(header_row)
+    #print(header_row)
     date_index = header_row.index("acq_date")
     lat_index = header_row.index("latitude")
     lon_index = header_row.index("longitude")
@@ -45,12 +46,12 @@ data = [{
     'marker': {
         'size': [bright/20 for bright in brightness],
         'color': brightness,
-        'colorscale': 'Viridis',
+        'colorscale': 'YlOrRd',
         'reversescale': True,
         'colorbar': {'title': 'Brightness'},
     },
 }]
 
-my_layout = Layout(title='World Fire Map')
+my_layout = Layout(title='1-Day World Fire Representation')
 fig = {'data': data, 'layout': my_layout}
 offline.plot(fig, filename='fire_map.html')
